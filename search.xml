@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>webpack Hash 值的区别</title>
+      <link href="2018/12/08/webpack-Hash%E5%80%BC%E7%9A%84%E5%8C%BA%E5%88%AB/"/>
+      <url>2018/12/08/webpack-Hash%E5%80%BC%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
+      
+        <content type="html"><![CDATA[<h1 id="webapck-配置中的-Hash-值的区别"><a href="#webapck-配置中的-Hash-值的区别" class="headerlink" title="webapck 配置中的 Hash 值的区别"></a>webapck 配置中的 Hash 值的区别</h1><h2 id="Hash-的类别"><a href="#Hash-的类别" class="headerlink" title="Hash 的类别"></a>Hash 的类别</h2><ul><li>hash</li><li>chunkhash</li><li>contenthash<blockquote><p>下面我们分别来讲一讲以上 hash 值的区别</p></blockquote></li></ul><p>webpack 打包防止缓存，或者对未修改文件不需要重新打包更新，我们一般采用 hash 文件名末尾加上 hash 值来处理，那么以上的 hash 值的区别是什么呢？</p><h2 id="hash"><a href="#hash" class="headerlink" title="hash"></a>hash</h2><figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hash值是来源与webpack构建工具打包过程中生成的唯一hash值ID，每次打包生成的hash值都不一样</span><br><span class="line">如果使用hash值作为缓存文件名会导致：</span><br><span class="line">  因为js和css同时使用一个hash值，如果重新打包，会导致缓存失效。哪怕改动一个文件，全部文件都会重新打包，导致服务器做的缓存失败</span><br></pre></td></tr></tbody></table></figure><h2 id="chunkhash"><a href="#chunkhash" class="headerlink" title="chunkhash"></a>chunkhash</h2><figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">根据chunk生成hash值，如果打包来源同一个chunk，那么hash值就会一样，</span><br><span class="line">导致：js和css的hash值还是会一样，因为css是在js中引入的，所以会同属同一个chunk</span><br></pre></td></tr></tbody></table></figure><h2 id="contenthash"><a href="#contenthash" class="headerlink" title="contenthash"></a>contenthash</h2><figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">根据文件内容生成hash值，不同文件的hash值是不一样的，</span><br><span class="line">所以只会根据文件内容的变更生成hash值，没有改动的文件则不会重新生成新的hash值</span><br></pre></td></tr></tbody></table></figure><p>推荐缓存使用contenthash进行缓存</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 前端学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> webpack </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Vue 首页白屏优化</title>
+      <link href="2018/12/02/Vue%E9%A6%96%E9%A1%B5%E7%99%BD%E5%B1%8F%E4%BC%98%E5%8C%96/"/>
+      <url>2018/12/02/Vue%E9%A6%96%E9%A1%B5%E7%99%BD%E5%B1%8F%E4%BC%98%E5%8C%96/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Vue-项目如何提升加载速度，白屏原因是什么引起的？怎么解决？"><a href="#Vue-项目如何提升加载速度，白屏原因是什么引起的？怎么解决？" class="headerlink" title="Vue 项目如何提升加载速度，白屏原因是什么引起的？怎么解决？"></a>Vue 项目如何提升加载速度，白屏原因是什么引起的？怎么解决？</h1><h2 id="1、首先我们得知道-Vue-项目的加载过程"><a href="#1、首先我们得知道-Vue-项目的加载过程" class="headerlink" title="1、首先我们得知道 Vue 项目的加载过程"></a>1、首先我们得知道 Vue 项目的加载过程</h2><p>我们大部分开发的项目都是 SPA 单页项目，而单页项目的加载过程是怎么样的呢？</p><blockquote><p>FP(Frist Paint) -&gt; FCP(First Contentful Paint) -&gt; FMP(First Meaningful Paint)</p><blockquote><p>获取静态资源 html</p><blockquote><p>静态资源 css-js</p><blockquote><p>解析 css-js 生成 html 标签</p><blockquote><p>请求后端数据 ajax fetch</p><blockquote><p>渲染数据<br>以上整个过程是单页应用的加载过程页面，从加载 html 静态资源到获取数据整个时间段内都是空白，这也导致了白屏的原因</p></blockquote></blockquote></blockquote></blockquote></blockquote></blockquote><p>我们结合以下图片更方便大家理解</p><p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9tbWJpei5xcGljLmNuL21tYml6X3BuZy9oRXgwM2NGZ1VzV0IzS29jYkttSEk2Z21KMVliZmF5UDJvSm1nQzNvYm9xZ2RFRXgwbEVONnlPTTNnY0RtTHVjSVM5QWliY2E3Q0taaWJQbXhGME14MjZ3LzY0MD93eF9mbXQ9cG5nJnRwPXdlYnAmd3hmcm9tPTUmd3hfbGF6eT0xJnd4X2NvPTE?x-oss-process=image/format,png" alt="avater"></p><h2 id="2、解决方案一（loading）"><a href="#2、解决方案一（loading）" class="headerlink" title="2、解决方案一（loading）"></a>2、解决方案一（loading）</h2><figure class="highlight html"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">最原始加载方式，在页面渲染中假如loading状态，告诉客户正在loading，此方案属于最最基础的优化方案之一</span><br></pre></td></tr></tbody></table></figure><p>基于 loading 提升方案</p><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">骨架屏方案，把项目页面框架用骨架屏方式展示出来，提升用户体验（这里讲到的骨架屏是手动生成的）</span><br></pre></td></tr></tbody></table></figure><blockquote><p>注：此方案针对于 FP 状态时间内做的客户体验提升</p></blockquote><h2 id="3、路由动态加载，提取公共库"><a href="#3、路由动态加载，提取公共库" class="headerlink" title="3、路由动态加载，提取公共库"></a>3、路由动态加载，提取公共库</h2><h3 id="3-1、路由动态加载"><a href="#3-1、路由动态加载" class="headerlink" title="3.1、路由动态加载"></a>3.1、路由动态加载</h3><p>采用库：</p><figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">plugin - syntax - dynamic - <span class="keyword">import</span>;</span><br><span class="line">Vue.component(<span class="string">"async-component"</span>, (resolve) =&gt; {</span><br><span class="line">  <span class="keyword">import</span>(<span class="string">"./AsyncComponent.js"</span>).then(<span class="function">(<span class="params">AsynComponent</span>) =&gt;</span> {</span><br><span class="line">    resolve(AsyncComponent.default);</span><br><span class="line">  });</span><br><span class="line">});</span><br></pre></td></tr></tbody></table></figure><h3 id="3-2-提取公共库"><a href="#3-2-提取公共库" class="headerlink" title="3.2 提取公共库"></a>3.2 提取公共库</h3><blockquote><p>webpack4 提供了 optimization.splitChunks</p></blockquote><p>optimization 可以实现很多功能,大致分为两种情况</p><blockquote><ul><li>three shaking 只支持 ES Module 模块的引入，删除没有引用的模块打包</li><li>Code Splitting 拆分代码，提高执行效率和用户体验</li></ul></blockquote><p>我们查看下官网提供的配置<br>webpack.config.js</p><figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = {</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">  optimization: {</span><br><span class="line">    splitChunks: {</span><br><span class="line">      chunks: <span class="string">"async"</span>, <span class="comment">//async异步代码分割 initial同步代码分割 all同步异步分割都开启</span></span><br><span class="line">      minSize: <span class="number">20000</span>, <span class="comment">// 字节 引入的文件大于30kb才进行分割</span></span><br><span class="line">      maxSize: <span class="number">50000</span>, <span class="comment">// 50kb，尝试将大于50kb的文件拆分成n个50kb的文件</span></span><br><span class="line">      minRemainingSize: <span class="number">0</span>, <span class="comment">// 仅在剩余单个块时生效</span></span><br><span class="line">      minChunks: <span class="number">1</span>, <span class="comment">//模块至少使用次数</span></span><br><span class="line">      maxAsyncRequests: <span class="number">30</span>, <span class="comment">// 同时加载的模块数量最多是5个，只分割出同时引入的前5个文件</span></span><br><span class="line">      maxInitialRequests: <span class="number">30</span>, <span class="comment">// 首页加载的时候引入的文件最多3个</span></span><br><span class="line">      automaticNameDelimiter: <span class="string">"~"</span>, <span class="comment">//缓存组和生成文件名称之间的连接符</span></span><br><span class="line">      enforceSizeThreshold: <span class="number">50000</span>, <span class="comment">//强制执行拆分的大小阈值和其他限制（minRemainingSize，maxAsyncRequests，maxInitialRequests）将被忽略</span></span><br><span class="line">      name: <span class="literal">true</span>, <span class="comment">// 缓存组里面的filename生效，覆盖默认命名</span></span><br><span class="line">      cacheGroups: {</span><br><span class="line">        <span class="comment">// 缓存组，将所有加载模块放在缓存里面一起分割打包</span></span><br><span class="line">        defaultVendors: {</span><br><span class="line">          <span class="comment">//自定义打包模块</span></span><br><span class="line">          test: <span class="regexp">/[\\/]node_modules[\\/]/</span>,</span><br><span class="line">          priority: <span class="number">-10</span>, <span class="comment">//优先级，先打包到哪个组里面，值越大，优先级越高</span></span><br><span class="line">          reuseExistingChunk: <span class="literal">true</span>,</span><br><span class="line">        },</span><br><span class="line">        <span class="keyword">default</span>: {</span><br><span class="line">          <span class="comment">// 默认打包模块</span></span><br><span class="line">          minChunks: <span class="number">2</span>,</span><br><span class="line">          priority: <span class="number">-20</span>,</span><br><span class="line">          reuseExistingChunk: <span class="literal">true</span>, <span class="comment">//模块嵌套引入时，判断是否复用已经被打包的模块</span></span><br><span class="line">        },</span><br><span class="line">      },</span><br><span class="line">    },</span><br><span class="line">  },</span><br><span class="line">};</span><br></pre></td></tr></tbody></table></figure><h2 id="4-SSR-预渲染-同构"><a href="#4-SSR-预渲染-同构" class="headerlink" title="4.SSR/ 预渲染 / 同构"></a>4.SSR/ 预渲染 / 同构</h2><p>首先我们搞清楚什么是 SSR, 预渲染, 和 同构</p><blockquote><ol><li>SSR: 服务端渲染 (php,jsp,…)</li><li>预渲染: 预先渲染，是指本地打包的时候,webpack vue 打包的时候经过《无头浏览器》拿到预渲染页面的所有的 html 代码，然后再在 index.html 中填充</li><li>同构： 一套代码多端使用(vue react nuxt) 主要是 vue-server-renderer</li></ol></blockquote><h2 id="5-loading-骨架屏-预渲染"><a href="#5-loading-骨架屏-预渲染" class="headerlink" title="5.loading-骨架屏-预渲染"></a>5.loading-骨架屏-预渲染</h2><p>对于骨架屏的生成大致通常有两种方式</p><ul><li>1、手动生成（上文有提到）</li><li>2、自动生成骨架屏</li></ul><p>手动生成骨架屏的方式，好处就是可以做出高定制化的骨架屏效果，缺点就是开发成本大，效率低，但本文不对此方式进行讲解</p><p>那么如何实现自动骨架屏的效果呢？一个简单的方式是：</p><blockquote><p>将已有内容样式进行调整，生成对应的骨架效果，例如以下代码，可以将文字内容，变成骨架条块</p></blockquote><figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">generateSkeleton</span>(<span class="params"></span>) </span>{</span><br><span class="line">  <span class="comment">// 文字节点</span></span><br><span class="line">  [...document.querySelectorAll(<span class="string">"*"</span>)]</span><br><span class="line">    .firter(</span><br><span class="line">      (node) =&gt;</span><br><span class="line">        ![<span class="string">"script"</span>, <span class="string">"style"</span>, <span class="string">"html"</span>, <span class="string">"body"</span>, <span class="string">"head"</span>, <span class="string">"title"</span>].includes(</span><br><span class="line">          node.tagName.toLowerCase()</span><br><span class="line">        )</span><br><span class="line">    )</span><br><span class="line">    .map(<span class="function">(<span class="params">node</span>) =&gt;</span> [...node.childNodes].filter(<span class="function">(<span class="params">node</span>) =&gt;</span> node <span class="keyword">instanceof</span> Text))</span><br><span class="line">    .flat(<span class="literal">Infinity</span>)</span><br><span class="line">    .forEach(<span class="function">(<span class="params">node</span>) =&gt;</span> {</span><br><span class="line">      <span class="keyword">let</span> span = <span class="built_in">document</span>.createElement(<span class="string">"span"</span>);</span><br><span class="line">      node.parentNode.insertBefore(span, node);</span><br><span class="line">      span.appendChild(node);</span><br><span class="line">      span.style = <span class="string">`</span></span><br><span class="line"><span class="string">      background: #f2f2f2;</span></span><br><span class="line"><span class="string">      color: transparent !important;</span></span><br><span class="line"><span class="string">    `</span>;</span><br><span class="line">    });</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure><p><img src="https://pic4.zhimg.com/v2-4baef38f4779f0b0ee4ab302f1194127_b.webp" alt="avater"><br>这样，只要我们完善不同内容如图片、图标等元素的骨架化过程，就可以得到一个相对可用的内容骨架化效果了</p><p>自动骨架化的好处是，生成骨架的效率高，开发成本很低，但缺点是定制性相对较差，需要根据已有内容来确定骨架效果</p><p>但这有一个问题，我们期望是在应用刚打开时，还未请求数据前就呈现骨架，目前显然是做不到的</p><p>而我们可以借助“预渲染”来实现期望的效果</p><hr><p>预渲染类似服务端渲染，它的过程大概是这样的：在应用完成打包后，立刻启动一个 headless 浏览器进行页面访问，再将访问的结果输出成 html 文件的渲染过程</p><p>通俗地说就是：打包完后本地先访问看一看，看到啥就“截个屏”存起来，然后输出一个 html 文件，覆盖原本构建生成的 index.html</p><p>这样，用户访问打包好的 index.html 时，看到的就是一个有内容的网页</p><p>那么，借助预渲染，我们可以将上述自动骨架屏的过程，放在 headless 浏览器加载出网页内容后，具备内容后再将内容骨架化，再输出成 html，就可以实现用户访问时，还未请求数据前，先呈现骨架的效果</p><h2 id="6-webpack-entry-单页应用改成多页应用"><a href="#6-webpack-entry-单页应用改成多页应用" class="headerlink" title="6. webpack entry(单页应用改成多页应用)"></a>6. webpack entry(单页应用改成多页应用)</h2><h2 id="7-资源请求时间片的处理"><a href="#7-资源请求时间片的处理" class="headerlink" title="7. 资源请求时间片的处理"></a>7. 资源请求时间片的处理</h2><h2 id="8-CDN"><a href="#8-CDN" class="headerlink" title="8. CDN"></a>8. CDN</h2><h2 id="9-quickLink-在浏览器空闲的时候去请求预加载可能要访问的页面的资源"><a href="#9-quickLink-在浏览器空闲的时候去请求预加载可能要访问的页面的资源" class="headerlink" title="9. quickLink(在浏览器空闲的时候去请求预加载可能要访问的页面的资源)"></a>9. quickLink(在浏览器空闲的时候去请求预加载可能要访问的页面的资源)</h2><p>prefetch 与 preload、preconnect 区别</p><ul><li>preload<link rel="preload">  控制浏览器何时去加载资源,设置浏览器的加载优先级</li></ul><hr><ul><li>prefetch: 预先加载(prefetch),它的原理是:<br>利用浏览器的空闲时间去先下载用户指定需要的内容,然后缓存起来,这样用户下次加载时,就直接从缓存中取出来,效率就快了<blockquote><p>prefetch 分为以下几类<br>link prefetch <link rel="prefetch" href="xxx.png">：表示浏览器在空闲的时候将 xxx.png 下载缓存起来，之后需要此类资源就从缓存中获取，大大提高请求速度<br>移动端优化重点就是 DNS <link rel="dns-prefetch" href="www.baidu.com"></p></blockquote></li></ul><hr><ul><li>preconnect: 把 DNS 解析，TLS 协商， TCP 握手都预先执行了</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> Vue生态链 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 前端 </tag>
+            
+            <tag> Vue </tag>
+            
+            <tag> 白屏 </tag>
+            
+            <tag> 优化 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Javascript ES6 详解&lt;一&gt;</title>
+      <link href="2018/11/30/Javascript-ES6-%E8%AF%A6%E8%A7%A3-%E4%B8%80/"/>
+      <url>2018/11/30/Javascript-ES6-%E8%AF%A6%E8%A7%A3-%E4%B8%80/</url>
+      
+        <content type="html"><![CDATA[<h1 id="ECMAScript-学习"><a href="#ECMAScript-学习" class="headerlink" title="ECMAScript 学习"></a>ECMAScript 学习</h1><h2 id="什么是-ECMA"><a href="#什么是-ECMA" class="headerlink" title="什么是 ECMA"></a>什么是 ECMA</h2><p><img src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1487385531,1597092167&amp;fm=26&amp;gp=0.jpg" alt="avater"></p><p>ECMAScript 是一种由 Ecma 国际（前身为欧洲计算机制造商协会，European Computer Manufacturers Association）通过 ECMA-262 标准化的脚本程序设计语言。这种语言在万维网上应用广泛，它往往被称为 JavaScript 或 JScript，所以它可以理解为是 JavaScript 的一个标准,但实际上后两者是 ECMA-262 标准的实现和扩展。</p><h2 id="为什么需要学习-ES6"><a href="#为什么需要学习-ES6" class="headerlink" title="为什么需要学习 ES6"></a>为什么需要学习 ES6</h2><ol><li>ES6 的版本内容变动最多，具有里程碑意义</li><li>ES6 加入了许多的新特性，编程实现更简单，更高效</li><li>ES6 是前端发展的趋势， 就业必备技能</li></ol><h2 id="ES6-的兼容性"><a href="#ES6-的兼容性" class="headerlink" title="ES6 的兼容性"></a>ES6 的兼容性</h2><blockquote><p><a href="https://www.caniuse.com/" target="_blank" rel="noopener">点击可查看 ES6 的兼容性</a></p></blockquote><h2 id=""><a href="#" class="headerlink" title=""></a><img src="https://img-blog.csdnimg.cn/20190305104918339.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2x5bjE3NzI2NzE5ODA=,size_16,color_FFFFFF,t_70" alt="avater"></h2><blockquote><p>具体理论知识，大家可以百度或者维基百科查询哟 ~~~</p></blockquote>]]></content>
+      
+      
+      <categories>
+          
+          <category> 前端学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Javascript </tag>
+            
+            <tag> ES6-11 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+  
+  
+</search>
